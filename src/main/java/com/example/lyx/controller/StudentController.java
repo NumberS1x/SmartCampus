@@ -4,6 +4,7 @@ package com.example.lyx.controller;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.example.lyx.common.Result;
+import com.example.lyx.config.LoginConfig;
 import com.example.lyx.entity.School;
 import com.example.lyx.entity.Student;
 import com.example.lyx.mapper.StudentMapper;
@@ -40,7 +41,10 @@ public class StudentController {
         if (res == null){
             return Result.error("-1","用户名或者密码输入错误！");
         }else{
-            return Result.success(res);
+            HashMap<String,Object> map = new HashMap<>();
+            String token = LoginConfig.addToken(studentId, studentPass);
+            map.put("token",token);
+            return Result.success(map);
         }
     }
 //    学生注册
