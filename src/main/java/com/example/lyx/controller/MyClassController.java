@@ -5,7 +5,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.example.lyx.common.Result;
 import com.example.lyx.entity.MyClass;
+import com.example.lyx.entity.Student;
 import com.example.lyx.service.MyClassService;
+import com.example.lyx.service.StudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class MyClassController {
 
     @Autowired
     private MyClassService myClassService;
+
+    @Autowired
+    private StudentService studentService;
 //创建一个班级
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Result<?> addClass(@RequestBody JSONObject body){
@@ -55,6 +60,19 @@ public class MyClassController {
         }
         PageInfo pageInfo = new PageInfo(myClasses);
         return Result.success(pageInfo);
+    }
+
+//    获取我的班级
+    @RequestMapping(value = "/MyClass",method = RequestMethod.POST)
+    public Result<?> getMyClass(@RequestBody JSONObject body){
+        Integer studentId = Integer.parseInt(body.get("studentId").toString());
+        Student res = studentService.findById(studentId);
+        String className = res.getStudentClass();
+        String schoolName = res.getSchoolName();
+        if (className == null){
+            return Result.error("-1","您还未加入班级！");
+        }
+        return Result.success(myClassService.queryBySchoolName(className,schoolName));
     }
 
 

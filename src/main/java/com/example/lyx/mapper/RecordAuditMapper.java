@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper
 public interface RecordAuditMapper {
-    @Insert("insert into record_audit values(#{applicantId},#{applicantName},#{auditorName},#{auditOutcome},#{auditTime})")
+    @Insert("insert into record_audit values(#{recordId},#{applicantId},#{applicantName},#{auditorName},#{auditOutcome},#{auditTime})")
     void addRecord(RecordAudit recordAudit);
 
     @Delete("delete from record_audit where record_id = #{recordId}")

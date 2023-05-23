@@ -54,7 +54,7 @@ public class AuditClassController {
         AuditClass auditClass = new AuditClass();
         auditClass.setAuditId(auditId);
         auditClass.setAuditorName(auditorName);
-        auditClass.setAuditId(auditorId);
+        auditClass.setAuditorId(auditorId);
         auditClass.setApplicantId(applicantId);
         auditClass.setApplicantName(applicantName);
         auditClass.setApplicantClass(applicantClass);
@@ -74,7 +74,7 @@ public class AuditClassController {
     }
 
     //开始审核
-    @RequestMapping(value = "/start",method = RequestMethod.POST)
+    @RequestMapping(value = "/startAudit",method = RequestMethod.POST)
     public Result<?> startAudit(@RequestBody JSONObject body){
         Integer auditId = Integer.parseInt(body.get("auditId").toString());
         String auditOutcome = body.get("auditOutcome").toString();

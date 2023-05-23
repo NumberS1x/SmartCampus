@@ -23,7 +23,7 @@ public interface StudentMapper {
     @Update("update student set school_name = #{schoolName} where student_id = #{studentId}")
     void upDateSchoolName(Student student);
 
-    @Update("update student set class_name = #{className} where student_id = {studentId}")
+    @Update("update student set student_class = #{studentClass} where student_id = #{studentId}")
     void upDateClassName(Student student);
 
     @Select("select * from student where student_Id =#{studentId}")
