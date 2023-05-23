@@ -33,6 +33,7 @@ public class StudentController {
 
 
 
+
 //    登录
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Result<?> login(@RequestParam Integer studentId,
@@ -70,7 +71,11 @@ public class StudentController {
 
 //    更新
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public Result<?> update(@RequestBody Student student){
+    public Result<?> update(@RequestBody Student student,
+                            @RequestParam String token){
+        if (LoginConfig.verifyToken(token) == null){
+            return Result.error("-1","用户登陆失败，请重新登录");
+        }
         if(student.getStudentPass() == null){
             String pass = studentService.findById(student.getStudentId()).getStudentPass();
             Student studentNew = student;
@@ -100,6 +105,10 @@ public class StudentController {
 //    学生加入学校
     @RequestMapping(value = "/joinschool",method = RequestMethod.POST)
     public Result<?> joinSchool(@RequestBody JSONObject body){
+        String token = body.get("token").toString();
+        if (LoginConfig.verifyToken(token) == null){
+            return Result.error("-1","用户登陆失败，请重新登录");
+        }
         String schoolName = body.get("schoolName").toString();
         Integer studentId = Integer.parseInt(body.get("studentId").toString());
         Student res = studentService.findById(studentId);

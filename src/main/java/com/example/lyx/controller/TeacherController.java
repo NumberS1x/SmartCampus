@@ -2,6 +2,7 @@ package com.example.lyx.controller;
 
 
 import com.example.lyx.common.Result;
+import com.example.lyx.config.LoginConfig;
 import com.example.lyx.entity.Teacher;
 import com.example.lyx.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,11 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public Result<?> update(@RequestBody Teacher teacher){
+    public Result<?> update(@RequestBody Teacher teacher,
+                            @RequestParam String token){
+        if (LoginConfig.verifyToken(token) == null){
+            return Result.error("-1","用户登陆失败，请重新登录");
+        }
         if(teacher.getTeacherPass() == null){
             String pass = teacherService.findById(teacher.getTeacherNumber()).getTeacherPass();
             Teacher teacherNew = teacher;
