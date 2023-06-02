@@ -12,6 +12,9 @@ public interface QuMapper {
     @Insert("insert into qu values (#{id},#{level},#{content})")
     void addQu(Qu qu);
 
+    @Select("select max(id) from qu")
+    Integer getId();
+
     @Delete("delete from qu where id = #{id}")
     void deleteById(Integer id);
 

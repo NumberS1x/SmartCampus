@@ -4,6 +4,7 @@ package com.example.lyx.controller;
 import com.example.lyx.common.Result;
 import com.example.lyx.config.LoginConfig;
 import com.example.lyx.entity.Teacher;
+import com.example.lyx.mapper.TeacherMapper;
 import com.example.lyx.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
+
+
 //    登录
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Result<?> login(@RequestParam Integer teacherNumber,

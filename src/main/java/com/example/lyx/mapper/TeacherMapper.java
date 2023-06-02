@@ -14,6 +14,9 @@ public interface TeacherMapper {
     @Update("update teacher set teacher_name = #{teacherName},teacher_pass=#{teacherPass},teacher_course=#{teacherCourse},teacher_school=#{teacherSchool} where teacher_number=#{teacherNumber}")
     void updateTeacher(Teacher teacher);
 
+    @Update("update teacher set teacher_name = #{teacherName} where teacher_number = #{teacherNumber}")
+    void updateName(Teacher teacher);
+
     @Select("select * from teacher where teacher_number =#{teacherNumber}")
     Teacher queryById(Integer teacherNumber);
 
